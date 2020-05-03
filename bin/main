@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require __DIR__ . '/../vendor/autoload.php';
+if (!isset($argv[1])) {
+    exit(1);
+}
+$mail = new PHPMailer(true);
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+$mailType = '163';
+$env = require_once(dirname(__DIR__) . 'env.php');
+$accountArr = $env['accountArr'];
+$attachmentArr = $argv;
+array_shift($attachmentArr);
+$fileNum = count($attachmentArr);
+$mail->Subject = '[自动附件]' . basename($attachmentArr[0]) . ($fileNum > 1 ? '等' . $fileNum . '个文件' : '');
+$mail->Body = ' ';
+$mail->Host = $accountArr[$mailType]['host'];
+$mail->Username = $accountArr[$mailType]['user'];
+$mail->Password = $accountArr[$mailType]['pass'];
+$mail->SMTPSecure = 'ssl';
+$mail->Port = 465;
+$mail->isHTML(false);
+$mail->isSMTP();
+$mail->setLanguage('zh_cn');
+$mail->SMTPAuth = true;
+$mail->XMailer = null;
+try {
+    $mail->setFrom($mail->Username);
+    $mail->addAddress('844659503@qq.com');
+    foreach ($attachmentArr as $item) {
+        $mail->addAttachment($item);
+    }
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
