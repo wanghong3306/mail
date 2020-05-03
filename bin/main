@@ -9,7 +9,16 @@ require __DIR__ . '/../vendor/autoload.php';
 if (!isset($argv[1])) {
     exit(1);
 }
-$mail = new PHPMailer(true);
+
+class Mail extends PHPMailer
+{
+    protected static function isPermittedPath($path)
+    {
+        return true;
+    }
+}
+
+$mail = new Mail(true);
 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 $mailType = '163';
 $env = require_once(dirname(__DIR__) . '/env.php');
