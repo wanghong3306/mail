@@ -12,7 +12,7 @@ if (!isset($argv[1])) {
 $mail = new PHPMailer(true);
 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 $mailType = '163';
-$env = require_once(dirname(__DIR__) . 'env.php');
+$env = require_once(dirname(__DIR__) . '/env.php');
 $accountArr = $env['accountArr'];
 $attachmentArr = $argv;
 array_shift($attachmentArr);
