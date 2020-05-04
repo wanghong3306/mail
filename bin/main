@@ -26,6 +26,7 @@ $accountArr = $env['accountArr'];
 $attachmentArr = $argv;
 array_shift($attachmentArr);
 $fileNum = count($attachmentArr);
+$mail->CharSet = 'utf-8';
 $mail->Subject = '[自动附件]' . basename($attachmentArr[0]) . ($fileNum > 1 ? '等' . $fileNum . '个文件' : '');
 $mail->Body = ' ';
 $mail->Host = $accountArr[$mailType]['host'];
