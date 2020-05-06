@@ -5,12 +5,14 @@ return [
         '163' => [
             'user' => 'xx@163.com',
             'pass' => 'xx',
-            'host' => 'smtp.163.com',
+            'sendHost' => 'smtp.163.com',
+            'receiveHost' => 'pop.163.com',
         ],
         'qq' => [
             'user' => 'xx@qq.com',
             'pass' => 'xx',
-            'host' => 'smtp.qq.com',
+            'sendHost' => 'smtp.qq.com',
+            'receiveHost' => 'pop.qq.com',
         ],
     ],
 ];
